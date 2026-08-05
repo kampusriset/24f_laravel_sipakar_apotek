@@ -9,13 +9,21 @@
 <body class="bg-gray-100 font-sans antialiased">
 
     <div class="container mx-auto p-6">
+<<<<<<< HEAD
         <h1 class="text-3xl font-bold text-gray-800 mb-2 text-center">Sistem Apotek Pintar Berbasis AI</h1>
+=======
+        <h1 class="text-3xl font-bold text-gray-800 mb-2 text-center">🤖 Sistem Apotek Pintar Berbasis AI</h1>
+>>>>>>> 570f67c79d6ca1bc610c544f9bd93ffa410562e5
         <p class="text-center text-sm text-gray-500 mb-6">Sistem Pakar Deteksi Alergi &amp; Efek Samping Obat — Rule-Based + Certainty Factor + Forward Chaining</p>
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
             <div class="bg-white p-6 rounded-lg shadow-md h-fit">
+<<<<<<< HEAD
                 <h2 class="text-xl font-semibold text-gray-700 mb-4 border-b pb-2">Pendaftaran Rekam Medis Pasien</h2>
+=======
+                <h2 class="text-xl font-semibold text-gray-700 mb-4 border-b pb-2">📋 Pendaftaran Rekam Medis Pasien</h2>
+>>>>>>> 570f67c79d6ca1bc610c544f9bd93ffa410562e5
                 <form id="form-pasien" onsubmit="simpanPasien(event)">
                     <div class="mb-4">
                         <label class="block text-sm font-medium text-gray-600">Nama Pasien</label>
@@ -66,7 +74,11 @@
 
             <div class="lg:col-span-2 space-y-6">
                 <div class="bg-white p-6 rounded-lg shadow-md">
+<<<<<<< HEAD
                     <h2 class="text-xl font-semibold text-gray-700 mb-4 border-b pb-2">Keranjang Kasir POS</h2>
+=======
+                    <h2 class="text-xl font-semibold text-gray-700 mb-4 border-b pb-2">🛒 Keranjang Kasir POS</h2>
+>>>>>>> 570f67c79d6ca1bc610c544f9bd93ffa410562e5
 
                     <div class="mb-4">
                         <label class="block text-sm font-medium text-gray-600">Pilih Pasien Transaksi</label>
@@ -104,20 +116,32 @@
 
                     <div id="ai-alert-box" class="hidden mb-6 bg-red-50 border-l-4 border-red-500 p-4 rounded-md">
                         <div class="flex items-start">
+<<<<<<< HEAD
                             <div class="text-xl mr-2"></div>
+=======
+                            <div class="text-xl mr-2">⚠️</div>
+>>>>>>> 570f67c79d6ca1bc610c544f9bd93ffa410562e5
                             <div class="w-full">
                                 <h3 class="text-red-800 font-bold">AI Screening: Bahaya Terdeteksi!</h3>
                                 <p id="ai-warning-message" class="text-red-700 text-sm mt-1"></p>
 
                                 <div class="mt-3 flex flex-wrap gap-3 text-xs">
+<<<<<<< HEAD
                                     <span id="ai-badge-alergi" class="hidden px-2 py-1 rounded bg-red-200 text-red-800 font-semibold">Risiko Alergi Obat</span>
+=======
+                                    <span id="ai-badge-alergi" class="hidden px-2 py-1 rounded bg-red-200 text-red-800 font-semibold">🔴 Risiko Alergi Obat</span>
+>>>>>>> 570f67c79d6ca1bc610c544f9bd93ffa410562e5
                                     <span class="px-2 py-1 rounded bg-gray-200 text-gray-800 font-semibold">
                                         Nilai Keyakinan Diagnosis (CF): <span id="ai-cf-value">0</span>%
                                     </span>
                                 </div>
 
                                 <div class="mt-3">
+<<<<<<< HEAD
                                     <p class="text-xs font-bold text-gray-700 mb-1">Rincian Efek Samping / Kontraindikasi Terdeteksi:</p>
+=======
+                                    <p class="text-xs font-bold text-gray-700 mb-1">📌 Rincian Efek Samping / Kontraindikasi Terdeteksi:</p>
+>>>>>>> 570f67c79d6ca1bc610c544f9bd93ffa410562e5
                                     <table class="w-full text-xs border border-red-200 bg-white rounded overflow-hidden">
                                         <thead class="bg-red-100 text-red-800">
                                             <tr>
@@ -132,7 +156,11 @@
                                 </div>
 
                                 <p class="mt-3 text-xs bg-yellow-50 border border-yellow-200 text-yellow-800 p-2 rounded">
+<<<<<<< HEAD
                                     <strong>Rekomendasi:</strong> <span id="ai-rekomendasi-text"></span>
+=======
+                                    💊 <strong>Rekomendasi:</strong> <span id="ai-rekomendasi-text"></span>
+>>>>>>> 570f67c79d6ca1bc610c544f9bd93ffa410562e5
                                 </p>
 
                                 <div id="ai-alternatives-list" class="mt-4 space-y-2"></div>
@@ -142,7 +170,11 @@
 
                     <div id="ai-safe-box" class="hidden mb-6 bg-green-50 border-l-4 border-green-500 p-4 rounded-md">
                         <div class="flex items-start">
+<<<<<<< HEAD
                             <div class="text-xl mr-2"></div>
+=======
+                            <div class="text-xl mr-2">✅</div>
+>>>>>>> 570f67c79d6ca1bc610c544f9bd93ffa410562e5
                             <p id="ai-safe-message" class="text-green-800 text-sm"></p>
                         </div>
                     </div>
@@ -271,7 +303,11 @@
                     });
 
                     if(data.alternatives.length > 0){
+<<<<<<< HEAD
                         altList.innerHTML = '<p class="text-xs font-bold text-gray-700">Rekomendasi Obat Pengganti yang Aman:</p>';
+=======
+                        altList.innerHTML = '<p class="text-xs font-bold text-gray-700">💡 Rekomendasi Obat Pengganti yang Aman:</p>';
+>>>>>>> 570f67c79d6ca1bc610c544f9bd93ffa410562e5
                         data.alternatives.forEach(alt => {
                             altList.innerHTML += '<div class="bg-white p-2 rounded border border-red-200 flex justify-between items-center text-xs">' +
                                 '<div><strong>' + alt.name + '</strong> <span class="text-gray-400">| Efek samping: ' + alt.side_effects.join(', ') + '</span></div>' +
@@ -279,7 +315,11 @@
                                 '</div>';
                         });
                     } else {
+<<<<<<< HEAD
                         altList.innerHTML = '<p class="text-xs text-gray-500">Tidak ada alternatif aman yang tersedia di gudang saat ini.</p>';
+=======
+                        altList.innerHTML = '<p class="text-xs text-gray-500">❌ Tidak ada alternatif aman yang tersedia di gudang saat ini.</p>';
+>>>>>>> 570f67c79d6ca1bc610c544f9bd93ffa410562e5
                     }
                 } else {
                     safeBox.classList.remove('hidden');
@@ -344,7 +384,11 @@
             .then(res => res.json())
             .then(data => {
                 if(data.status === 'success') {
+<<<<<<< HEAD
                     alert('' + data.message + '\nNomor Nota: ' + data.invoice + '\nTotal: Rp ' + data.total_bayar);
+=======
+                    alert('🎉 ' + data.message + '\nNomor Nota: ' + data.invoice + '\nTotal: Rp ' + data.total_bayar);
+>>>>>>> 570f67c79d6ca1bc610c544f9bd93ffa410562e5
                     keranjangItems = [];
                     renderTabelKeranjang();
                 } else {
