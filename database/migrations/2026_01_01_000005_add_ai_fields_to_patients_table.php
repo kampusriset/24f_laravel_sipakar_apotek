@@ -6,13 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Menambahkan variabel input Sistem Pakar yang belum tersedia
-     * di tabel patients:
-     * - age                -> Variabel #3: Faktor Demografi dan Usia
-     * - is_pregnant         -> Variabel #4: Kondisi Kesehatan Khusus (kehamilan)
-     * - is_breastfeeding    -> Variabel #4: Kondisi Kesehatan Khusus (menyusui)
-     */
     public function up(): void
     {
         Schema::table('patients', function (Blueprint $table) {
