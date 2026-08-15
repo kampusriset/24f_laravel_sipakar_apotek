@@ -8,25 +8,16 @@ use App\Models\Patient;
 /**
  * Metode   : Rule-Based System dengan Certainty Factor (CF)
  * Inferensi: Forward Chaining
- *
- * Alur kerja 
- *   1. Kumpulkan fakta klinis/data aktual pasien (buildFacts).
- *   2. Mesin inferensi mencocokkan fakta secara maju (forward chaining)
- *      dengan seluruh rule IF-THEN di basis pengetahuan (fireRules).
- *   3. Hitung tingkat keyakinan diagnosis memakai kombinasi
- *      Certainty Factor (combineCf).
- *   4. Susun laporan rekomendasi klinis final (screenPrescription).
  */
 class PharmacyAiService
 {
     /**
      * Basis Pengetahuan (Knowledge Base) - 16 Rule (R1-R16).
-     * Setiap rule:
-     *  - source       : asal fakta pemicu (alergi | kondisi_penyakit | demografi | kondisi_khusus)
+     *  - source       : asal fakta pemicu (alergi, kondisi_penyakit, demografi/usia, kondisi_khusus)
      *  - if           : syarat pada fakta pasien
-     *  - target_group : golongan kimia obat yang dikenai rule ini (dicocokkan ke Medicine::chemical_group)
+     *  - target_group : golongan kimia obat yang dikenai rule ini (dicocokkan dgn Medicine:chemical_group)
      *  - consequence  : tindakan/kesimpulan (THEN)
-     *  - cf           : Certainty Factor (derajat keyakinan pakar)
+     *  - cf           : Certainty Factor (nilai keyakinan pakar)
      *  - category     : kategori risiko
      */
     protected function knowledgeBase(): array
@@ -148,9 +139,9 @@ class PharmacyAiService
     }
 
     /**
-     * Output mengikuti poin "8. Output Rekomendasi" :
+     * Output :
      *  1. risiko_alergi       -> Risiko Alergi Obat
-     *  2. risiko_efek_samping -> Risiko Efek Samping Obat (per rule yang aktif)
+     *  2. risiko_efek_samping -> Risiko Efek Samping Obat (sesuai rule yang aktif)
      *  3. nilai_keyakinan     -> Nilai Keyakinan Diagnosis (CF dalam persen)
      *  4. rekomendasi         -> Rekomendasi Penggunaan/Penggantian Obat
      */
@@ -162,7 +153,7 @@ class PharmacyAiService
         $facts = $this->buildFacts($patient);
         $firedRules = $this->fireRules($facts, $medicine);
 
-        // Jika tidak ada rule yang aktif = obat aman
+        // Jika tidak ada rule yang aktif = obat aman (safe)
         if (empty($firedRules)) {
             return [
                 'status' => 'safe',
@@ -188,6 +179,7 @@ class PharmacyAiService
         $kodeRule = collect($firedRules)->pluck('code')->implode(', ');
         $kategoriUtama = $firedRules[0]['category'];
 
+         // Jika ada rule yang aktif = obat tdk aman (danger)
         return [
             'status' => 'danger',
             'message' => "PERINGATAN ({$kodeRule}): {$medicine->name} berisiko \"{$kategoriUtama}\" untuk pasien ini!",
@@ -200,8 +192,7 @@ class PharmacyAiService
     }
 
     /**
-     * Tahap 1 Alur Kerja: pengumpulan fakta klinis aktual pasien.
-     * Alias ditambahkan 
+     * Tahap 1 Alur Kerja: pengumpulan fakta klinis aktual pasien
      */
     protected function buildFacts(Patient $patient): array
     {
@@ -232,8 +223,6 @@ class PharmacyAiService
 
     /**
      * Tahap 2 Alur Kerja: Forward Chaining.
-     * Mencocokkan fakta pasien dengan seluruh rule IF-THEN yang relevan
-     * dengan golongan kimia obat yang akan diberikan.
      */
     protected function fireRules(array $facts, Medicine $medicine): array
     {
@@ -249,9 +238,6 @@ class PharmacyAiService
 
     /**
      * Tahap 3 Alur Kerja: kombinasi Certainty Factor.
-     * Jika lebih dari satu rule aktif untuk obat yang sama, CF digabung
-     * dengan rumus kombinasi evidence paralel:
-     *   CF_gabungan = CF1 + CF2 * (1 - CF1), diulang untuk rule berikutnya.
      */
     protected function combineCf(array $firedRules): float
     {
@@ -263,9 +249,8 @@ class PharmacyAiService
     }
 
    /**
-     * Mencari obat alternatif: kategori terapi sama, golongan kimia
-     * berbeda, stok tersedia, dan lolos seluruh rule (benar-benar aman
-     * untuk fakta pasien yang sama, bukan hanya untuk 1-2 kasus khusus).
+     * Tahap 4 Alur Kerja : Mencari obat alternatif: kategori terapi sama, golongan kimia
+     * berbeda, stok tersedia, dan lolos seluruh rule 
      */
     private function getAlternatives(Medicine $unsafeMedicine, array $facts): array
     {
