@@ -10,9 +10,7 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        // =====================================================
-        // 1. DATA OBAT
-        // =====================================================
+        // 1. DATA OBAT (contoh + data utama rule-based sistem ai)
         $obat = [
             [
                 'nama_obat' => 'Amoxicillin 500mg', 
@@ -173,9 +171,7 @@ class DatabaseSeeder extends Seeder
             Medicine::create($item);
         }
 
-        // =====================================================
-        // 2. DATA PASIEN CONTOH
-        // =====================================================
+        // 2. DATA PASIEN (contoh)
         Patient::create([
             'name' => 'Budi Santoso',
             'age' => 45,
